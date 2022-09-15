@@ -169,8 +169,8 @@ wait(4)
 LoadAntiAfk()
 spawn(function()
 while wait(2) do
-if GetAmountOfTowersPlaced() ~= 8 then 
-PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,8)))
+if GetAmountOfTowersPlaced() ~= 2 then 
+PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
 end
 wait(0.5)
 UpgradeTower()
