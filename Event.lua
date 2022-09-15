@@ -7,15 +7,6 @@ end
 local CheckIfInLobby = function()
    return game:GetService("ReplicatedStorage"):WaitForChild("Lobby").Value
 end    
-local GetAmountOfTowersPlaced = function()
-    local Placed = 0
-    for i,v in pairs(game.Workspace.Unit:GetChildren()) do
-        if v.Owner.Value == game.Players.LocalPlayer then
-            Placed = Placed + 1
-        end  
-    end
-    return Placed
-end    
 local GetCFrameToPlace = function(Type,WhichOne)
     local CurrentHill = 0
     local ToFind = WhichOne or 1
@@ -167,13 +158,11 @@ spawn(function()
 end)
 wait(4)  
 LoadAntiAfk()
-spawn(function()
-while wait(2) do
-if GetAmountOfTowersPlaced() ~= 2 then 
-PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
-end
-wait(0.5)
-UpgradeTower()
-end
-end)
+    spawn(function()
+        while wait(2) do
+            PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
+            wait(0.5)
+            UpgradeTower()
+        end
+    end)
 end
