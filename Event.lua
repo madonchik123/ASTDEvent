@@ -7,21 +7,23 @@ end
 local CheckIfInLobby = function()
    return game:GetService("ReplicatedStorage"):WaitForChild("Lobby").Value
 end    
+local GetAmountOfTowersPlaced = function()
+    local Placed = 0
+    for i,v in pairs(game.Workspace.Unit:GetChildren()) do
+        if v.Owner.Value == game.Players.LocalPlayer then
+            Placed = Placed + 1
+        end  
+    end
+    return Placed
+end    
 local GetCFrameToPlace = function(Type,WhichOne)
     local CurrentHill = 0
     local ToFind = WhichOne or 1
     if Type == "Hill" then
         for i,v in pairs(game:GetService("Workspace").Placeable.Hill:GetChildren()) do
-            if v.Name == "hill" then
-                CurrentHill = CurrentHill + 1
-                if CurrentHill == ToFind then
-                    return v.Rock.CFrame
-                end
-            elseif v.Name == "Hill" then
-                CurrentHill = CurrentHill + 1
-                if CurrentHill == ToFind then
-                    return v.Hill_Part.CFrame
-                end
+            CurrentHill = CurrentHill + 1
+            if CurrentHill == ToFind then
+                return v.PrimaryPart.CFrame
             end
         end
     end   
@@ -117,8 +119,8 @@ local function GetAmountOfItemsIntable(tbl)
 	end
 	return items
 end
-local UpgradeTower = function(TowerName)
-    local TowerTable = GetTower(TowerName)
+local UpgradeTower = function()
+    local TowerTable = GetTower()
     local Tower = TowerTable[math.random(1,GetAmountOfItemsIntable(TowerTable))]
     if Tower.UpgradeTag.Value ~= Tower.MaxUpgradeTag.Value then
     local args = {
@@ -167,8 +169,11 @@ wait(4)
 LoadAntiAfk()
 spawn(function()
 while wait(2) do
+if Placed ~= 2 then 
 PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
-UpgradeTower(ToUse)
+end
+wait(0.5)
+UpgradeTower()
 end
 end)
 end
