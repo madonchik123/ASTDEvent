@@ -114,7 +114,11 @@ local UpgradeTower = function(TowerName)
         }
     
     game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))   
-end    
+end   
+
+wait(4)
+ChangeSpeed("2x")
+ChangeMode("Normal") 
 if CheckIfInLobby() then
 wait(3)
 LoadAntiAfk()
@@ -126,8 +130,6 @@ end)
 else
 wait(4)  
 LoadAntiAfk()
-ChangeSpeed("2x")
-ChangeMode("Normal")
 repeat wait()
 PlaceTower(ToUse,GetCFrameToPlace("Hill"))
 until game:GetService("Workspace").Unit:FindFirstChild(ToUse)
