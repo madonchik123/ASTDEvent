@@ -1,17 +1,5 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
-local UpgradeLimit = 3
 repeat wait() until game.Loaded
---Auto Rejoin
-spawn(function()
-    while wait(900) do
-        local tps = game:GetService("TeleportService")
-        local player = game.Players.LocalPlayer
-        local gameid = game.PlaceId
-        
-        tps:Teleport(gameid,player)        
-    end    
-end) 
-
 --Functions
 local LoadAntiAfk = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnTop/Rice-Anti-Afk/main/Wind", true))()
@@ -19,13 +7,23 @@ end
 local CheckIfInLobby = function()
    return game:GetService("ReplicatedStorage"):WaitForChild("Lobby").Value
 end    
-local GetCFrameToPlace = function(Type)
+local GetCFrameToPlace = function(Type,WhichOne)
+    local CurrentHill = 0
+    local ToFind = WhichOne or 1
     if Type == "Hill" then
-        if game:GetService("Workspace").Placeable.Hill:FindFirstChild("hill") then
-            return game:GetService("Workspace").Placeable.Hill:FindFirstChild("hill").Rock.CFrame
-        elseif game:GetService("Workspace").Placeable.Hill:FindFirstChild("Hill") then
-            return game:GetService("Workspace").Placeable.Hill:FindFirstChild("Hill").Hill_Part.CFrame
-        end    
+        for i,v in pairs(game:GetService("Workspace").Placeable.Hill:GetChildren()) do
+            if v.Name == "hill" then
+                CurrentHill = CurrentHill + 1
+                if CurrentHill == ToFind then
+                    return v.Rock.CFrame
+                end
+            elseif v.Name == "Hill" then
+                CurrentHill = CurrentHill + 1
+                if CurrentHill == ToFind then
+                    return v.Hill_Part.CFrame
+                end
+            end
+        end
     end   
 end
 local GetCurrentTimeLeft = function()
@@ -88,11 +86,13 @@ local ChangeMode = function(Mode)
     end   
 end
 local GetTower = function(TowerName)
-   for i,v in pairs(game.Workspace.Unit:GetChildren()) do
-      if v.Owner.Value == game.Players.LocalPlayer then
-          return v
-      end  
-   end
+    local Towers = {}
+    for i,v in pairs(game.Workspace.Unit:GetChildren()) do
+        if v.Owner.Value == game.Players.LocalPlayer then
+            table.insert(Towers,v)
+        end  
+    end
+    return Towers
 end
 local PlaceTower = function(TowerName,CFrame)
    local args = {
@@ -105,21 +105,46 @@ local PlaceTower = function(TowerName,CFrame)
     }
     
     game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args)) 
-end    
+end
+local function GetAmountOfItemsIntable(tbl)
+	local items = 0
+	for index, value in pairs(tbl)do
+		if typeof(value) == "table" then -- if the value is a table we reiterate to get the number of items in it
+			items = items + getNumberOfItems(value) -- you can add 1 if you want to count the table aswell
+		else
+			items = items + 1
+		end
+	end
+	return items
+end
 local UpgradeTower = function(TowerName)
-    local Tower = GetTower(TowerName)
+    local TowerTable = GetTower(TowerName)
+    local Tower = TowerTable[math.random(1,GetAmountOfItemsIntable(TowerTable))]
+    if Tower.UpgradeTag.Value ~= Tower.MaxUpgradeTag.Value then
     local args = {
         [1] = "Upgrade",
         [2] = Tower
         }
     
     game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))   
+    end
 end   
 
 wait(4)
 ChangeSpeed("2x")
 ChangeMode("Normal") 
 if CheckIfInLobby() then
+--Auto Rejoin
+spawn(function()
+    while wait(180) do
+        local tps = game:GetService("TeleportService")
+        local player = game.Players.LocalPlayer
+        local gameid = game.PlaceId
+        
+        tps:Teleport(gameid,player)        
+    end    
+end)
+
 wait(3)
 LoadAntiAfk()
 spawn(function()
@@ -128,13 +153,22 @@ JoinCurrentChallenge()
 end
 end)
 else
+--Auto Rejoin
+spawn(function()
+    while wait(900) do
+        local tps = game:GetService("TeleportService")
+        local player = game.Players.LocalPlayer
+        local gameid = game.PlaceId
+        
+        tps:Teleport(gameid,player)        
+    end    
+end)
 wait(4)  
 LoadAntiAfk()
-repeat wait()
-PlaceTower(ToUse,GetCFrameToPlace("Hill"))
-until game:GetService("Workspace").Unit:FindFirstChild(ToUse)
-repeat wait()
+spawn(function()
+while wait(2) do
+PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
 UpgradeTower(ToUse)
-wait(0.5)
-until workspace.Unit:FindFirstChild(ToUse):WaitForChild("UpgradeTag").Value == UpgradeLimit
+end
+end)
 end
