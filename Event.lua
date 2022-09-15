@@ -40,7 +40,9 @@ local JoinCurrentChallenge = function()
         firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Exam"..String].ExamDoor,0)
         elseif string.find(GetCurrentEventChallenge(),"Raid")  then
         local String = string.gsub(GetCurrentEventChallenge(),"Raid","")
+        if string ~= "2" then
         firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Raid "..String].ExamDoor,0)
+        end
         end   
     end    
 end    
@@ -97,7 +99,7 @@ local PlaceTower = function(TowerName,CFrame)
         }
     }
     
-    game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args)) 
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes").Input:FireServer(unpack(args)) 
 end
 local function GetAmountOfItemsIntable(tbl)
 	local items = 0
