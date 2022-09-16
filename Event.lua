@@ -131,25 +131,21 @@ local ChangeSpeed = function(Speed)
     end
 end
 local ChangeMode = function(Mode)
-    spawn(function()
-        while wait(2) do
-            if Mode == "Normal" then
-                local args = {
-                    [1] = "VoteGameMode",
-                    [2] = Mode
-                }
+    if Mode == "Normal" then
+        local args = {
+            [1] = "VoteGameMode",
+            [2] = Mode
+        }
 
-                game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
-            elseif Mode == "Extreme" then
-                local args = {
-                    [1] = "VoteGameMode",
-                    [2] = Mode
-                }
+        game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
+    elseif Mode == "Extreme" then
+        local args = {
+            [1] = "VoteGameMode",
+            [2] = Mode
+        }
 
-                game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
-            end
-        end
-    end)
+        game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
+    end
 end
 local GetTower = function(TowerName)
     local Towers = {}
