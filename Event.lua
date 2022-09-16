@@ -61,7 +61,7 @@ local GetAmountOfTowersPlaced = function(TowerName)
     end
     return Towers
 end
-local GetCFrameToPlace = function(Type,WhichOne)
+local GetPartToPlace = function(Type,WhichOne)
     local CurrentHill = 0
     local ToFind = WhichOne or 1
     if Type == "Hill" then
@@ -69,15 +69,15 @@ local GetCFrameToPlace = function(Type,WhichOne)
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
                 if CurrentHill == ToFind and v.Hill_Part.CFrame ~= nil then
-                    return v.Hill_Part.CFrame + Vector3.new(0,2,0)
+                    return v.Hill_Part
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
                 if CurrentHill == ToFind and v.PrimaryPart.CFrame ~= nil then
-                    return v.PrimaryPart.CFrame + Vector3.new(0,2,0)
+                    return v.PrimaryPart
                 end
             elseif v.Name == "hill" and v:FindFirstChild("Rock") then
                 if CurrentHill == ToFind and v.Rock.CFrame ~= nil then
-                    return v.Rock.CFrame + Vector3.new(0,2,0)
+                    return v.Rock
                 end
             end
         end
@@ -112,6 +112,27 @@ local JoinCurrentChallenge = function()
         end
     else
         AutoRejoin(120)
+    end
+end
+local CheckIfAvailable = function(Pos)
+    local Part = Instance.new("Part")
+    Part.Parent = game.Workspace
+    Part.Position = Pos
+    local rayOrigin = Part.Position
+    local rayDirection = Vector3.new(0, -5, 0)
+
+    -- Build a "RaycastParams" object and cast the ray
+    local raycastParams = RaycastParams.new()
+    raycastParams.FilterDescendantsInstances = {Part}
+    raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+    local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+
+    if raycastResult then
+        Part:Destroy()
+        return false
+    elseif not raycastResult then
+        Part:Destroy()
+        return true
     end
 end
 local ChangeSpeed = function(Speed)
@@ -212,7 +233,9 @@ else
             if GetAmountOfTowersPlaced(ToUse) < MaxAmountOfUnits then
                 for i = StartWith,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill) do
                     wait(0.05)
-                    PlaceTower(UnitCost,ToUse,GetCFrameToPlace("Hill",i))
+                    if CheckIfAvailable(GetPartToPlace("Hill",i).Position + Vector3.new(0,2,0)) then
+                        PlaceTower(UnitCost,ToUse,GetPartToPlace("Hill",i).CFrame + Vector3.new(0,2,0))
+                    end
                 end
             end
             wait(0.5)
