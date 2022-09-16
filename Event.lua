@@ -37,7 +37,7 @@ local GetCFrameToPlace = function(Type,WhichOne)
 		       if CurrentHill == ToFind then
 		          return v.Part.CFrame
 		       end		            
-	       end
+	   end
         end
     end   
 end
@@ -55,6 +55,7 @@ local Event3 = string.gsub(Event2,"</u>","")
 return Event3
 end 
 local JoinCurrentChallenge = function()
+    if GetCurrentTimeLeft() == nil then return end
     if GetCurrentTimeLeft() > 1 then
     if string.find(GetCurrentEventChallenge(),"Trial") then
     local String = string.gsub(GetCurrentEventChallenge(),"Trial","")
