@@ -187,7 +187,9 @@ ChangeSpeed("2x")
 ChangeMode("Normal")
 if game:GetService("ReplicatedStorage").Map.Value == "Raid2" then
    StartWith = 6
+   UpgradeLimit = 5
    print("Start With Changed to ",StartWith)
+   print("Upgrade Limit Changed to ",UpgradeLimit)
 end    
 if CheckIfInLobby() then
     wait(3)
