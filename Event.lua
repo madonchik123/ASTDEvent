@@ -16,8 +16,9 @@ local LoadAntiAfk = function()
     end)
 end
 local AutoRejoin = function(Time)
+    local TimeToWait = Time or 900
     spawn(function()
-        while wait(Time) do
+        while wait(TimeToWait) do
             local tps = game:GetService("TeleportService")
             local player = game.Players.LocalPlayer
             local gameid = game.PlaceId
@@ -180,11 +181,11 @@ local UpgradeTower = function()
     end)
 end
 wait(4)
-AutoRejoin(900)
 ChangeSpeed("2x")
 ChangeMode("Normal")
 if CheckIfInLobby() then
     wait(3)
+    AutoRejoin(180)
     LoadAntiAfk()
     spawn(function()
         while wait() do
@@ -193,6 +194,7 @@ if CheckIfInLobby() then
     end)
 else
     LoadAntiAfk()
+    AutoRejoin(900)
     wait(2)
     spawn(function()
         while wait() do
