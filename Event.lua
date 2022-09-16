@@ -60,20 +60,16 @@ local GetCFrameToPlace = function(Type,WhichOne)
         for i,v in pairs(game:GetService("Workspace"):WaitForChild("Placeable").Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
-                if CurrentHill == ToFind and v.Part.CFrame ~= nil then
+                if CurrentHill == ToFind and v.Hill_Part.CFrame ~= nil then
                     return v.Hill_Part.CFrame
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil then
-                    return v.PrimaryPart.CFrame + Vector3.new(0,7,0)
+                    return v.PrimaryPart.CFrame + Vector3.new(0,1,0)
                 end
             elseif v.Name == "hill" and v:FindFirstChild("Rock") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil then
                     return v.Rock.CFrame
-                end
-            elseif v.Name == "Land" and v:FindFirstChild("Part") then
-                if CurrentHill == ToFind and v.Part.CFrame ~= nil then
-                    return v.Part.CFrame
                 end
             end
         end
@@ -163,7 +159,6 @@ local PlaceTower = function(TowerName,CFrame)
             ["Unit"] = TowerName
         }
     }
-
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes").Input:FireServer(unpack(args))
 end
 local UpgradeTower = function()
