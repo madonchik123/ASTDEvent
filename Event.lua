@@ -1,4 +1,5 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
+local UnitCost = 500
 local UpgradeLimit = 3
 local MaxAmountOfUnits = 3
 local StartWith = 1
@@ -156,17 +157,19 @@ local GetTower = function(TowerName)
     end
     return Towers
 end
-local PlaceTower = function(TowerName,CFrame)
+local PlaceTower = function(TowerPrice,TowerName,CFrame)
     if CFrame == nil then return end
-    local args = {
-        [1] = "Summon",
-        [2] = {
-            ["Rotation"] = 0,
-            ["cframe"] = CFrame,
-            ["Unit"] = TowerName
+    if game:GetService("Players").LocalPlayer.Money.Value >= TowerPrice then
+        local args = {
+            [1] = "Summon",
+            [2] = {
+                ["Rotation"] = 0,
+                ["cframe"] = CFrame,
+                ["Unit"] = TowerName
+            }
         }
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes").Input:FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes").Input:FireServer(unpack(args))
+    end
 end
 local UpgradeTower = function()
     pcall(function()
@@ -209,7 +212,7 @@ else
             if GetAmountOfTowersPlaced(ToUse) < MaxAmountOfUnits then
                 for i = StartWith,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill) do
                     wait(0.05)
-                    PlaceTower(ToUse,GetCFrameToPlace("Hill",i))
+                    PlaceTower(UnitCost,ToUse,GetCFrameToPlace("Hill",i))
                 end
             end
             wait(0.5)
