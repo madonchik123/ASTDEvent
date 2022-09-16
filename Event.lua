@@ -1,6 +1,6 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
 local UpgradeLimit = 3
-local Distance = 45
+local Distance = 60
 
 repeat wait() until game.Loaded
 repeat wait() until game:GetService("Workspace").Camera:FindFirstChild(game.Players.LocalPlayer.Name)
