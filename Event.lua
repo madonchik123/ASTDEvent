@@ -3,8 +3,12 @@ local UpgradeLimit = 3
 
 repeat wait() until game.Loaded
 wait(2)
+xpcall(function()
 repeat wait() until game:GetService("Workspace").Camera:FindFirstChild(game.Players.LocalPlayer.Name)
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+end,function()
+wait(6)
+end)
 --Functions
 local LoadAntiAfk = function()
     spawn(function()
