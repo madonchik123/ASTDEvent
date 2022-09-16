@@ -1,5 +1,6 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
 local UpgradeLimit = 3
+local StartWith = 1
 
 repeat wait() until game.Loaded
 wait(2)
@@ -183,6 +184,9 @@ end
 wait(4)
 ChangeSpeed("2x")
 ChangeMode("Normal")
+if game:GetService("ReplicatedStorage").Map == "Raid2" then
+   StartWith = 3 
+end    
 if CheckIfInLobby() then
     wait(3)
     AutoRejoin(180)
@@ -199,7 +203,7 @@ else
     spawn(function()
         while wait() do
             if GetAmountOfTowersPlaced(ToUse) < 3 then
-                for i = 1,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill) do
+                for i = StartWith,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill) do
                     wait(0.05)
                     PlaceTower(ToUse,GetCFrameToPlace("Hill",i))
                 end
