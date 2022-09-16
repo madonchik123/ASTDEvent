@@ -199,7 +199,7 @@ if CheckIfInLobby() then
     end)
 else
     LoadAntiAfk()
-    AutoRejoin(900)
+    AutoRejoin(500)
     wait(2)
     spawn(function()
         while wait() do
