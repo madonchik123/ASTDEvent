@@ -122,9 +122,13 @@ local CheckIfAvailable = function(Pos)
     local rayDirection = Vector3.new(0, -5, 0)
 
     -- Build a "RaycastParams" object and cast the ray
+    local Ignorelist = {Part}
     local raycastParams = RaycastParams.new()
-    raycastParams.FilterDescendantsInstances = {Part}
     raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+    for i,v in pairs(game.Workspace.Placeable.Hill:GetChildren()) do
+        table.insert(Ignorelist,v)
+    end  
+    raycastParams.FilterDescendantsInstances = Ignorelist
     local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
 
     if raycastResult then
