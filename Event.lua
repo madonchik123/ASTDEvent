@@ -43,7 +43,7 @@ local GetCFrameToPlace = function(Type,WhichOne)
 end
 local GetCurrentTimeLeft = function()
 local HUD = game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD")
-local timer = string.gsub(HUD.EventFrame.ChallengeTimer.Text,"Challenge Changes In: ","")
+local timer = string.gsub(HUD:WaitForChild("EventFrame"):WaitForChild("ChallengeTimer").Text,"Challenge Changes In: ","")
 local timervalue = string.gsub(timer,"m","")
 return tonumber(timervalue)
 end 
