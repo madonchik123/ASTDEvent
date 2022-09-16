@@ -117,7 +117,7 @@ end
 local CheckIfAvailable = function(Pos)
     local Part = Instance.new("Part")
     Part.Parent = game.Workspace
-    Part.Position = Pos
+    Part.Position = Pos + Vector3.new(0,5,0)
     local rayOrigin = Part.Position
     local rayDirection = Vector3.new(0, -5, 0)
 
