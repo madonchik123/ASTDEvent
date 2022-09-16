@@ -131,9 +131,9 @@ local function GetAmountOfItemsIntable(tbl)
 	local items = 0
 	for index, value in pairs(tbl)do
 		if typeof(value) == "table" then -- if the value is a table we reiterate to get the number of items in it
-			items = items + getNumberOfItems(value) -- you can add 1 if you want to count the table aswell
+		   items = items + getNumberOfItems(value) -- you can add 1 if you want to count the table aswell
 		else
-			items = items + 1
+		   items = items + 1
 		end
 	end
 	return items
@@ -187,13 +187,11 @@ end)
 wait(4)  
 LoadAntiAfk()
 wait(2)
-    spawn(function()
-        while wait(2) do
+    while wait(2) do
             if GetAmountOfTowersPlaced(ToUse) ~= 2 then
             PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
             end
             wait(0.5)
             UpgradeTower()
-        end
-    end)
+    end
 end
