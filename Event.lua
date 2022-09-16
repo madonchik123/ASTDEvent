@@ -3,6 +3,7 @@ local UpgradeLimit = 3
 local Distance = 60
 
 repeat wait() until game.Loaded
+wait(2)
 repeat wait() until game:GetService("Workspace").Camera:FindFirstChild(game.Players.LocalPlayer.Name)
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 --Functions
