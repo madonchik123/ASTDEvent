@@ -3,7 +3,7 @@ local UpgradeLimit = 3
 local Distance = 30
 
 repeat wait() until game.Loaded
-repeat wait() until game.Players.LocalPlayer.Character
+repeat wait() until game.Players.LocalPlayer.CharacterAdded
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 --Functions
 local LoadAntiAfk = function()
@@ -52,7 +52,7 @@ local GetAmountOfTowersPlaced = function(TowerName)
         end
     end
     return Towers
-end 
+end
 local GetCFrameToPlace = function(Type,WhichOne)
     local CurrentHill = 0
     local ToFind = WhichOne or 1
