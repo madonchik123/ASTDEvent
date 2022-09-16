@@ -182,6 +182,7 @@ spawn(function()
 end)
 wait(4)  
 LoadAntiAfk()
+wait(2)
     spawn(function()
         while wait(2) do
             if GetAmountOfTowersPlaced(ToUse) ~= 2 then
