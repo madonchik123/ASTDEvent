@@ -1,5 +1,7 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
+local UpgradeLimit = 3
 local Distance = 30
+
 repeat wait() until game.Loaded
 repeat wait() until game.Players.LocalPlayer.Character
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
@@ -63,7 +65,7 @@ local GetCFrameToPlace = function(Type,WhichOne)
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude then
-                    return v.PrimaryPart.CFrame + Vector3.new(0,5,0)
+                    return v.PrimaryPart.CFrame
                 end
             elseif v.Name == "hill" and v:FindFirstChild("Rock") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Rock.Position).magnitude then
@@ -166,7 +168,7 @@ local UpgradeTower = function()
     pcall(function()
         local TowerTable = GetTower()
         local Tower = TowerTable[math.random(1,GetAmountOfItemsIntable(TowerTable))]
-        if Tower.UpgradeTag.Value ~= Tower.MaxUpgradeTag.Value then
+        if Tower.UpgradeTag.Value ~= Tower.MaxUpgradeTag.Value and Tower.UpgradeTag.Value ~= UpgradeLimit then
             local args = {
                 [1] = "Upgrade",
                 [2] = Tower
