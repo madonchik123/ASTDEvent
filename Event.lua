@@ -107,6 +107,8 @@ local JoinCurrentChallenge = function()
             wait()
             firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Raid "..String].ExamDoor,1)
         end
+    else
+        AutoRejoin(120)
     end
 end
 local ChangeSpeed = function(Speed)
