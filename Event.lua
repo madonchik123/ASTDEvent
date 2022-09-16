@@ -61,15 +61,15 @@ local GetCFrameToPlace = function(Type,WhichOne)
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
                 if CurrentHill == ToFind and v.Hill_Part.CFrame ~= nil then
-                    return v.Hill_Part.CFrame + Vector3.new(0,1,0)
+                    return v.Hill_Part.CFrame + Vector3.new(0,2,0)
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil then
-                    return v.PrimaryPart.CFrame + Vector3.new(0,1,0)
+                    return v.PrimaryPart.CFrame + Vector3.new(0,2,0)
                 end
             elseif v.Name == "hill" and v:FindFirstChild("Rock") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil then
-                    return v.Rock.CFrame + Vector3.new(0,1,0)
+                    return v.Rock.CFrame + Vector3.new(0,2,0)
                 end
             end
         end
@@ -194,6 +194,7 @@ else
         while wait() do
             if GetAmountOfTowersPlaced(ToUse) < 2 then
                 for i = 1,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill) do
+                    wait(0.05)
                     PlaceTower(ToUse,GetCFrameToPlace("Hill",i))
                 end
             end
