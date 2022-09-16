@@ -11,11 +11,10 @@ local GetCFrameToPlace = function(Type,WhichOne)
     local CurrentHill = 0
     local ToFind = WhichOne or 1
     if Type == "Hill" then
-        for i,v in pairs(game:GetService("Workspace").Placeable.Hill:GetChildren()) do
+        for i,v in pairs(game:GetService("Workspace"):WaitForChild("Placeable").Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
-            if v.Name == "Hill" then
-		            
-if CurrentHill == ToFind then
+            if v.Name == "Hill" then	            
+				  if CurrentHill == ToFind then
 		                return v.Hill_Part.CFrame
 		            end
 		    elseif v.Name == "hill" then
