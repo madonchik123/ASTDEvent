@@ -1,6 +1,6 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
 local UpgradeLimit = 3
-local Distance = 90
+local Distance = 60
 
 repeat wait() until game.Loaded
 wait(2)
@@ -66,7 +66,7 @@ local GetCFrameToPlace = function(Type,WhichOne)
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude then
-                    return v.PrimaryPart.CFrame
+                    return v.PrimaryPart.CFrame + Vector3.new(0,5,0)
                 end
             elseif v.Name == "hill" and v:FindFirstChild("Rock") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Rock.Position).magnitude then
