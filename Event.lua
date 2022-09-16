@@ -1,5 +1,5 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
-local UpgradeLimit = 6
+local UpgradeLimit = 3
 
 repeat wait() until game.Loaded
 wait(2)
