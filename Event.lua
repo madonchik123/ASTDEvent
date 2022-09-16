@@ -1,5 +1,6 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
 local UpgradeLimit = 3
+local MaxAmountOfUnits = 3
 local StartWith = 1
 
 repeat wait() until game.Loaded
@@ -202,7 +203,7 @@ else
     wait(2)
     spawn(function()
         while wait() do
-            if GetAmountOfTowersPlaced(ToUse) < 3 then
+            if GetAmountOfTowersPlaced(ToUse) < MaxAmountOfUnits then
                 for i = StartWith,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill) do
                     wait(0.05)
                     PlaceTower(ToUse,GetCFrameToPlace("Hill",i))
