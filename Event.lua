@@ -7,6 +7,15 @@ end
 local CheckIfInLobby = function()
    return game:GetService("ReplicatedStorage"):WaitForChild("Lobby").Value
 end    
+local GetAmountOfTowersPlaced = function(TowerName)
+    local Towers = 0
+    for i,v in pairs(game.Workspace:WaitForChild("Unit"):GetChildren()) do
+        if v.Owner.Value == game.Players.LocalPlayer and v.Name == TowerName then
+           Towers = Towers + 1
+        end   
+    end
+    return Towers
+end    
 local GetCFrameToPlace = function(Type,WhichOne)
     local CurrentHill = 0
     local ToFind = WhichOne or 1
@@ -14,21 +23,18 @@ local GetCFrameToPlace = function(Type,WhichOne)
         for i,v in pairs(game:GetService("Workspace"):WaitForChild("Placeable").Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" then	            
-				  if CurrentHill == ToFind then
-		                return v.Hill_Part.CFrame
-		            end
+			   if CurrentHill == ToFind then
+		          return v.Hill_Part.CFrame
+		       end
 		    elseif v.Name == "hill" then
-		            if CurrentHill == ToFind then
-		                return v.Rock.CFrame
-		            end
+		       if CurrentHill == ToFind then
+		          return v.Rock.CFrame
+		       end
 		    elseif v.Name == "Land" then
-		            if CurrentHill == ToFind then
-		                return v.Part.CFrame
-		            end		            
-		    
-        
-            
-end
+		       if CurrentHill == ToFind then
+		          return v.Part.CFrame
+		       end		            
+		   end
         end
     end   
 end
@@ -175,7 +181,9 @@ wait(4)
 LoadAntiAfk()
     spawn(function()
         while wait(2) do
+            if GetAmountOfTowersPlaced() ~= 2 then
             PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
+            end
             wait(0.5)
             UpgradeTower()
         end
