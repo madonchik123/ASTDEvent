@@ -13,9 +13,23 @@ local GetCFrameToPlace = function(Type,WhichOne)
     if Type == "Hill" then
         for i,v in pairs(game:GetService("Workspace").Placeable.Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
-            if CurrentHill == ToFind then
-                return v.PrimaryPart.CFrame
-            end
+            if v.Name == "Hill" then
+		            
+if CurrentHill == ToFind then
+		                return v.Hill_Part.CFrame
+		            end
+		    elseif v.Name == "hill" then
+		            if CurrentHill == ToFind then
+		                return v.Rock.CFrame
+		            end
+		    elseif v.Name == "Land" then
+		            if CurrentHill == ToFind then
+		                return v.Part.CFrame
+		            end		            
+		    
+        
+            
+end
         end
     end   
 end
