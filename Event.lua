@@ -3,7 +3,7 @@ local UpgradeLimit = 3
 local Distance = 45
 
 repeat wait() until game.Loaded
-repeat wait() until game.Players.LocalPlayer.CharacterAdded
+repeat wait() until game:GetService("Workspace").Camera:FindFirstChild(game.Players.LocalPlayer.Name)
 repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 --Functions
 local LoadAntiAfk = function()
@@ -12,7 +12,7 @@ local LoadAntiAfk = function()
     end)
 end
 local AutoRejoin = function(Time)
-     spawn(function()
+    spawn(function()
         while wait(Time) do
             local tps = game:GetService("TeleportService")
             local player = game.Players.LocalPlayer
@@ -20,8 +20,8 @@ local AutoRejoin = function(Time)
 
             tps:Teleport(gameid,player)
         end
-    end) 
-end    
+    end)
+end
 local CheckIfInLobby = function()
     return game:GetService("ReplicatedStorage"):WaitForChild("Lobby").Value
 end
