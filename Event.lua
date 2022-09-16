@@ -61,7 +61,7 @@ local GetCFrameToPlace = function(Type,WhichOne)
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
                 if CurrentHill == ToFind and v.Hill_Part.CFrame ~= nil then
-                    return v.Hill_Part.CFrame
+                    return v.Hill_Part.CFrame + Vector3.new(0,1,0)
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil then
@@ -69,7 +69,7 @@ local GetCFrameToPlace = function(Type,WhichOne)
                 end
             elseif v.Name == "hill" and v:FindFirstChild("Rock") then
                 if CurrentHill == ToFind and v.Part.CFrame ~= nil then
-                    return v.Rock.CFrame
+                    return v.Rock.CFrame + Vector3.new(0,1,0)
                 end
             end
         end
