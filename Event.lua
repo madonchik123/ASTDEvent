@@ -60,11 +60,15 @@ local JoinCurrentChallenge = function()
         if string.find(GetCurrentEventChallenge(),"Trial") then
         local String = string.gsub(GetCurrentEventChallenge(),"Trial","")
         firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Exam"..String].ExamDoor,0)
+	wait()
+	firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Exam "..String].ExamDoor,1)
         elseif string.find(GetCurrentEventChallenge(),"Raid")  then
         local String = string.gsub(GetCurrentEventChallenge(),"Raid","")
-        if String ~= "2" then
-        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Raid "..String].ExamDoor,0)
-        end
+	   if String ~= "2" then
+		firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Raid "..String].ExamDoor,0)
+		wait()
+		firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Queue["Raid "..String].ExamDoor,1)
+	   end
         end   
     end    
 end    
