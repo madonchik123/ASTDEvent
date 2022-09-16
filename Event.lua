@@ -1,6 +1,5 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
 local UpgradeLimit = 3
-local Distance = 80
 
 repeat wait() until game.Loaded
 wait(2)
@@ -61,19 +60,19 @@ local GetCFrameToPlace = function(Type,WhichOne)
         for i,v in pairs(game:GetService("Workspace"):WaitForChild("Placeable").Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
-                if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Hill_Part.Position).magnitude then
+                if CurrentHill == ToFind and v.Part.CFrame ~= nil then
                     return v.Hill_Part.CFrame
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
-                if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude then
-                    return v.PrimaryPart.CFrame + Vector3.new(0,6,0)
+                if CurrentHill == ToFind and v.Part.CFrame ~= nil then
+                    return v.PrimaryPart.CFrame + Vector3.new(0,7,0)
                 end
             elseif v.Name == "hill" and v:FindFirstChild("Rock") then
-                if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Rock.Position).magnitude then
+                if CurrentHill == ToFind and v.Part.CFrame ~= nil then
                     return v.Rock.CFrame
                 end
             elseif v.Name == "Land" and v:FindFirstChild("Part") then
-                if CurrentHill == ToFind and v.Part.CFrame ~= nil and Distance > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude then
+                if CurrentHill == ToFind and v.Part.CFrame ~= nil then
                     return v.Part.CFrame
                 end
             end
