@@ -52,7 +52,7 @@ local GetAmountOfTowersPlaced = function(TowerName)
         end
     end
     return Towers
-end
+end 
 local GetCFrameToPlace = function(Type,WhichOne)
     local CurrentHill = 0
     local ToFind = WhichOne or 1
