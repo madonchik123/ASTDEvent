@@ -192,7 +192,7 @@ else
     wait(2)
     spawn(function()
         while wait() do
-            if GetAmountOfTowersPlaced(ToUse) < 2 then
+            if GetAmountOfTowersPlaced(ToUse) < 3 then
                 for i = 1,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill) do
                     wait(0.05)
                     PlaceTower(ToUse,GetCFrameToPlace("Hill",i))
