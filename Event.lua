@@ -1,4 +1,5 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
+local Distance = 30
 repeat wait() until game.Loaded
 --Functions
 local LoadAntiAfk = function()
@@ -33,15 +34,15 @@ local GetCFrameToPlace = function(Type,WhichOne)
         for i,v in pairs(game:GetService("Workspace"):WaitForChild("Placeable").Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
-                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Hill_Part.Position).magnitude < 70 then
+                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Hill_Part.Position).magnitude < Distance then
                     return v.Hill_Part.CFrame
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
-                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude < 70 then
+                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude < Distance then
                     return v.Part.CFrame
                 end
             elseif v.Name == "Land" then
-                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude < 70 then
+                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude < Distance then
                     return v.Part.CFrame
                 end
             end
@@ -161,26 +162,6 @@ end
 wait(4)
 ChangeSpeed("2x")
 ChangeMode("Normal")
-if CheckIfInLobby() then
-    --Auto Rejoin
-    spawn(function()
-        while wait(180) do
-            local tps = game:GetService("TeleportService")
-            local player = game.Players.LocalPlayer
-            local gameid = game.PlaceId
-
-            tps:Teleport(gameid,player)
-        end
-    end)
-
-    wait(3)
-    LoadAntiAfk()
-    spawn(function()
-        while wait() do
-            JoinCurrentChallenge()
-        end
-    end)
-else
     --Auto Rejoin
     spawn(function()
         while wait(900) do
@@ -191,6 +172,15 @@ else
             tps:Teleport(gameid,player)
         end
     end)
+if CheckIfInLobby() then
+    wait(3)
+    LoadAntiAfk()
+    spawn(function()
+        while wait() do
+            JoinCurrentChallenge()
+        end
+    end)
+else
     LoadAntiAfk()
     repeat wait() until game.Players.LocalPlayer.Character
     repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
