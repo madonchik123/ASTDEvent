@@ -186,6 +186,7 @@ wait(4)
 ChangeSpeed("2x")
 ChangeMode("Normal")
 if game:GetService("ReplicatedStorage").Map.Value == "Raid2" then
+   print("Start With Changed to 3")
    StartWith = 3 
 end    
 if CheckIfInLobby() then
