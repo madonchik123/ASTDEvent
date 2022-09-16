@@ -6,10 +6,10 @@ local StartWith = 1
 repeat wait() until game.Loaded
 wait(2)
 xpcall(function()
-repeat wait() until game:GetService("Workspace").Camera:FindFirstChild(game.Players.LocalPlayer.Name)
-repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    repeat wait() until game:GetService("Workspace").Camera:FindFirstChild(game.Players.LocalPlayer.Name)
+    repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 end,function()
-wait(6)
+    wait(6)
 end)
 --Functions
 local LoadAntiAfk = function()
@@ -131,21 +131,25 @@ local ChangeSpeed = function(Speed)
     end
 end
 local ChangeMode = function(Mode)
-    if Mode == "Normal" then
-        local args = {
-            [1] = "VoteGameMode",
-            [2] = Mode
-        }
+    spawn(function()
+        while wait(2) do
+            if Mode == "Normal" then
+                local args = {
+                    [1] = "VoteGameMode",
+                    [2] = Mode
+                }
 
-        game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
-    elseif Mode == "Extreme" then
-        local args = {
-            [1] = "VoteGameMode",
-            [2] = Mode
-        }
+                game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
+            elseif Mode == "Extreme" then
+                local args = {
+                    [1] = "VoteGameMode",
+                    [2] = Mode
+                }
 
-        game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
-    end
+                game:GetService("ReplicatedStorage").Remotes.Input:FireServer(unpack(args))
+            end
+        end
+    end)
 end
 local GetTower = function(TowerName)
     local Towers = {}
@@ -186,11 +190,11 @@ wait(4)
 ChangeSpeed("2x")
 ChangeMode("Normal")
 if game:GetService("ReplicatedStorage").Map.Value == "Raid2" then
-   StartWith = 6
-   UpgradeLimit = 5
-   print("Start With Changed to ",StartWith)
-   print("Upgrade Limit Changed to ",UpgradeLimit)
-end    
+    StartWith = 6
+    UpgradeLimit = 5
+    print("Start With Changed to ",StartWith)
+    print("Upgrade Limit Changed to ",UpgradeLimit)
+end
 if CheckIfInLobby() then
     wait(3)
     AutoRejoin(180)
