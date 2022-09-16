@@ -9,6 +9,13 @@ end
 local CheckIfInLobby = function()
     return game:GetService("ReplicatedStorage"):WaitForChild("Lobby").Value
 end
+local GetAmountOfItemsInModel = function(Model)
+    local Amount = 0
+    for i,v in pairs(Model:GetChildren()) do
+       Amount = Amount + 1
+    end  
+    return Amount
+end    
 local GetAmountOfTowersPlaced = function(TowerName)
     local Towers = 0
     local Tower = TowerName or ToUse
@@ -26,15 +33,15 @@ local GetCFrameToPlace = function(Type,WhichOne)
         for i,v in pairs(game:GetService("Workspace"):WaitForChild("Placeable").Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
             if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
-                if CurrentHill == ToFind then
+                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Hill_Part.Position).magnitude < 70 then
                     return v.Hill_Part.CFrame
                 end
             elseif v.Name == "Hill" and v:FindFirstChild("Part") then
-                if CurrentHill == ToFind then
+                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude < 70 then
                     return v.Part.CFrame
                 end
             elseif v.Name == "Land" then
-                if CurrentHill == ToFind then
+                if CurrentHill == ToFind and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Part.Position).magnitude < 70 then
                     return v.Part.CFrame
                 end
             end
@@ -190,7 +197,7 @@ else
     spawn(function()
         while wait() do
             if GetAmountOfTowersPlaced(ToUse) < 2 then
-                PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
+                PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,GetAmountOfItemsInModel(game.Workspace.Placeable.Hill))))
             end
             wait(0.5)
             UpgradeTower()
