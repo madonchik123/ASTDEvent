@@ -25,13 +25,13 @@ local GetCFrameToPlace = function(Type,WhichOne)
     if Type == "Hill" then
         for i,v in pairs(game:GetService("Workspace"):WaitForChild("Placeable").Hill:GetChildren()) do
             CurrentHill = CurrentHill + 1
-            if v.Name == "Hill" then
+            if v.Name == "Hill" and v:FindFirstChild("Hill_Part") then
                 if CurrentHill == ToFind then
                     return v.Hill_Part.CFrame
                 end
-            elseif v.Name == "hill" then
+            elseif v.Name == "Hill" and v:FindFirstChild("Part") then
                 if CurrentHill == ToFind then
-                    return v.Rock.CFrame
+                    return v.Part.CFrame
                 end
             elseif v.Name == "Land" then
                 if CurrentHill == ToFind then
@@ -185,6 +185,7 @@ else
         end
     end)
     LoadAntiAfk()
+    repeat wait() until game.Players.LocalPlayer.Character
     repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
     spawn(function()
         while wait() do
