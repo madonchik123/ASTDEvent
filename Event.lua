@@ -2,15 +2,18 @@ local ToUse = "Genos [Overdrive]" -- must be a hill unit
 repeat wait() until game.Loaded
 --Functions
 local LoadAntiAfk = function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnTop/Rice-Anti-Afk/main/Wind", true))()
+    spawn(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnTop/Rice-Anti-Afk/main/Wind", true))()
+    end)
 end   
 local CheckIfInLobby = function()
    return game:GetService("ReplicatedStorage"):WaitForChild("Lobby").Value
 end    
 local GetAmountOfTowersPlaced = function(TowerName)
     local Towers = 0
+    local Tower = TowerName or ToUse
     for i,v in pairs(game.Workspace:WaitForChild("Unit"):GetChildren()) do
-        if v.Owner.Value == game.Players.LocalPlayer and v.Name == TowerName then
+        if v.Owner.Value == game.Players.LocalPlayer and v.Name == Tower then
            Towers = Towers + 1
         end   
     end
@@ -181,7 +184,7 @@ wait(4)
 LoadAntiAfk()
     spawn(function()
         while wait(2) do
-            if GetAmountOfTowersPlaced() ~= 2 then
+            if GetAmountOfTowersPlaced(ToUse) ~= 2 then
             PlaceTower(ToUse,GetCFrameToPlace("Hill",math.random(1,2)))
             end
             wait(0.5)
