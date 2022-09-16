@@ -47,7 +47,7 @@ local GetAmountOfTowersPlaced = function(TowerName)
     local Towers = 0
     local Tower = TowerName or ToUse
     for i,v in pairs(game.Workspace:WaitForChild("Unit"):GetChildren()) do
-        if v.Owner.Value == game.Players.LocalPlayer and v.Name == Tower then
+        if v:WaitForChild("Owner").Value == game.Players.LocalPlayer and v.Name == Tower then
             Towers = Towers + 1
         end
     end
