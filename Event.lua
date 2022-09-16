@@ -1,6 +1,6 @@
 local ToUse = "Genos [Overdrive]" -- must be a hill unit
 local UpgradeLimit = 3
-local Distance = 30
+local Distance = 45
 
 repeat wait() until game.Loaded
 repeat wait() until game.Players.LocalPlayer.CharacterAdded
